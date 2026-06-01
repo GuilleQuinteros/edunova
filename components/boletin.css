@@ -1,0 +1,100 @@
+.boletin-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.titulo-boletin {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.datos-alumno {
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+}
+
+.tabla-boletin {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.tabla-boletin th,
+.tabla-boletin td {
+    border: 1px solid #000;
+    padding: 5px;
+    text-align: center;
+}
+
+.fila-taller-header {
+    background-color: #e0e0e0;
+    font-weight: bold;
+}
+
+/* Oculta todo el resto de la app al imprimir */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .boletin-container,
+    .boletin-container * {
+        visibility: visible;
+    }
+
+    .boletin-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    /* Opcional: eliminar márgenes de impresión */
+    @page {
+        margin: 10mm;
+    }
+
+    .btn-outline-primary {
+        display: none !important;
+    }
+
+        /* Quita las flechas de los inputs numéricos */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    
+        input[type=number] {
+            -moz-appearance: textfield;
+            /* Firefox */
+        }
+    
+        /* Estilo visual al ingresar un número fuera de rango */
+        input[type=number]:invalid {
+            border-color: #dc3545;
+            background-color: #fff5f5;
+        }
+
+        .encabezado-institucion {
+            width: 100%;
+        }
+                
+        .encabezado-institucion h2 {
+            font-weight: 700;
+                                }
+                
+        .encabezado-institucion p {
+            margin-bottom: 4px;
+                                }
+                
+        @media print {
+        .encabezado-institucion img {
+            max-width: 90px;
+                                    }
+                                }
+}

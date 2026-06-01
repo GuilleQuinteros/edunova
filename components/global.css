@@ -1,0 +1,38 @@
+/* quitar flechas en inputs numéricos (usar con la clase sin-flechas) */
+.sin-flechas::-webkit-inner-spin-button,
+.sin-flechas::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.sin-flechas {
+    -moz-appearance: textfield;
+}
+
+/* validación visual si es inválido */
+.sin-flechas:invalid {
+    border-color: #dc3545;
+    background-color: #fff5f5;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .historial-container,
+    .historial-container * {
+        visibility: visible;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .historial-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+}
