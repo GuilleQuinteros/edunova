@@ -27,7 +27,7 @@ export default function CargarCurso() {
   };
 
   return (
-    <Protegido>
+    <Protegido rolesPermitidos={['admin']}>
     <div className="container mt-5" style={{ maxWidth: '500px' }}>
       <h3 className="text-center mb-4">Cargar Curso</h3>
       {mensaje && <div className="alert alert-info">{mensaje}</div>}

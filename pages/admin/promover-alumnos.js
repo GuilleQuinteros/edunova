@@ -176,7 +176,7 @@ export default function PromoverAlumnos() {
   // Render
   // ===========================
   return (
-    <Protegido>
+    <Protegido rolesPermitidos={['admin']}>
       <div className="container mt-5" style={{ maxWidth: "900px" }}>
         <h3 className="mb-4 text-center">Promover Alumnos</h3>
 

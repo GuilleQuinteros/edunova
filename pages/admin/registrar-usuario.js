@@ -30,7 +30,7 @@ export default function RegistrarUsuario() {
   };
 
   return (
-    <Protegido>
+    <Protegido rolesPermitidos={['admin']}>
     <div className="container mt-5" style={{ maxWidth: '500px' }}>
       <h3 className="mb-4 text-center">Registrar Usuario</h3>
       {mensaje && <div className="alert alert-info">{mensaje}</div>}

@@ -46,7 +46,7 @@ export default function CargarDivision() {
   };
 
   return (
-    <Protegido>
+    <Protegido rolesPermitidos={['admin']}>
     <div className="container mt-5" style={{ maxWidth: '600px' }}>
       <h3 className="mb-4 text-center">Cargar Nueva División</h3>
 

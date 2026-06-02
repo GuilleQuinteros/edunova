@@ -41,7 +41,7 @@ export default function VerDivisiones() {
   };
 
   return (
-    <Protegido>
+    <Protegido rolesPermitidos={['admin']}>
     <div className="container mt-5">
       <h3 className="mb-4">Divisiones</h3>
       <table className="table table-bordered">

@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-export default function Protegido({
-  children,
-  rolesPermitidos = []
-}) {
+export default function AdminOnly({ children }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -17,14 +14,10 @@ export default function Protegido({
 
     const usuario = JSON.parse(usuarioStr);
 
-    // Si se especificaron roles
-    if (
-      rolesPermitidos.length > 0 &&
-      !rolesPermitidos.includes(usuario.rol)
-    ) {
+    if (usuario.rol !== 'admin') {
       router.push('/admin/dashboard');
     }
   }, []);
 
-  return <>{children}</>;
+  return children;
 }

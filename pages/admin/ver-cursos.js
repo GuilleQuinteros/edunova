@@ -29,7 +29,7 @@ export default function VerCursos() {
   };
 
   return (
-    <Protegido>
+    <Protegido rolesPermitidos={['admin']}>
     <div className="container mt-5">
       <h3 className="mb-4">Cursos</h3>
       {error && <div className="alert alert-danger">{error}</div>}

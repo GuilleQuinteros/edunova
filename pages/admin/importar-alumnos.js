@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { leerExcel } from '@/lib/excel';
+import AdminOnly from '@/components/AdminOnly';
 
 export default function ImportarAlumnos() {
   const [cursos, setCursos] = useState([]);
@@ -116,6 +117,7 @@ const confirmarImportacion = async () => {
   };
 
   return (
+    <Protegido rolesPermitidos={['admin']}>
     <div className="container">
 
       <h2 className="mb-4">
@@ -247,5 +249,6 @@ const confirmarImportacion = async () => {
 
       </div>
     </div>
+    </Protegido>
   );
 }
