@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { leerExcel } from '@/lib/excel';
-import AdminOnly from '@/components/AdminOnly';
+import Protegido from '@/components/Protegido';
 
 export default function ImportarAlumnos() {
   const [cursos, setCursos] = useState([]);
