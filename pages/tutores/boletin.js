@@ -11,10 +11,35 @@ export default function BoletinTutor() {
   const [materiasNotas, setMateriasNotas] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [esTrimestral, setEsTrimestral] = useState(null);
+  const [habilitada, setHabilitada] = useState(true);
 
-  useEffect(() => {
-    if (dni) fetchBoletin();
-  }, [dni]);
+    useEffect(() => {
+        if (dni) {
+          verificarConfiguracion();
+        }
+      }, [dni]);
+
+      const verificarConfiguracion = async () => {
+
+      try {
+
+        const resConfig = await fetch('/api/configuracion');
+        const config = await resConfig.json();
+
+        if (!config.consulta_boletines_habilitada) {
+          setHabilitada(false);
+          setCargando(false);
+          return;
+        }
+
+        fetchBoletin();
+
+      } catch (error) {
+        console.error(error);
+        setCargando(false);
+      }
+    };
+
 
   const fetchBoletin = async () => {
   try {
@@ -44,6 +69,24 @@ export default function BoletinTutor() {
 };
 
   if (cargando) return <div className="container mt-5">Cargando boletín...</div>;
+      if (!habilitada) {
+      return (
+        <div className="container mt-5">
+
+          <div className="alert alert-warning text-center">
+
+            <h4>Consulta temporalmente deshabilitada</h4>
+
+            <p>
+              El establecimiento está realizando tareas de actualización
+              de calificaciones.
+            </p>
+
+          </div>
+
+        </div>
+      );
+    }
   if (!alumno) return <div className="container mt-5">Alumno no encontrado.</div>;
 
   return (

@@ -1,6 +1,19 @@
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 export default function Home() {
+
+  const [mostrarConsulta, setMostrarConsulta] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/configuracion')
+      .then(res => res.json())
+      .then(data => {
+        setMostrarConsulta(data.consulta_boletines_habilitada);
+      })
+      .catch(console.error);
+  }, []);
+
   return (
     <div className="container py-4">
 
@@ -35,12 +48,21 @@ export default function Home() {
                 ingresando el DNI del estudiante.
               </p>
 
-              <Link
-                href="/tutores"
-                className="btn btn-primary w-100"
-              >
-                Consultar
-              </Link>
+              {mostrarConsulta ? (
+                  <Link
+                    href="/tutores"
+                    className="btn btn-primary w-100"
+                  >
+                    Consultar
+                  </Link>
+                ) : (
+                  <button
+                    className="btn btn-secondary w-100"
+                    disabled
+                  >
+                    Consulta deshabilitada
+                  </button>
+                )}
 
             </div>
           </div>

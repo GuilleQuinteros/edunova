@@ -79,21 +79,26 @@ export default function Dashboard() {
       link: '/admin/historial-alumno',
     },
     {
-  titulo: 'Salir',
-  icono: '/icons/salir.png',
-  link: '/login', // se puede mantener, o quitar si redirigís manualmente
-  accion: async () => {
-    try {
-      await fetch('/api/logout', {
-        method: 'POST',
-      });
-      localStorage.removeItem('usuario');
-      window.location.href = '/login'; // redirigís manualmente
-    } catch (err) {
-      console.error('Error al cerrar sesión:', err);
-    }
-  },
-},
+      titulo: 'Habilitar Boletines',
+      icono: '/icons/boletin.png',
+      link: '/admin/configuracion-boletines',
+    },
+    {
+      titulo: 'Salir',
+      icono: '/icons/salir.png',
+      link: '/login', // se puede mantener, o quitar si redirigís manualmente
+      accion: async () => {
+        try {
+          await fetch('/api/logout', {
+            method: 'POST',
+          });
+          localStorage.removeItem('usuario');
+          window.location.href = '/login'; // redirigís manualmente
+        } catch (err) {
+          console.error('Error al cerrar sesión:', err);
+        }
+      },
+    },
 
   ];
 
