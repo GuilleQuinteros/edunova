@@ -1,8 +1,16 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Layout({ children }) {
+
+  const router = useRouter();
+
+  const mostrarBotonVolver =
+    router.pathname.startsWith('/admin') &&
+    router.pathname !== '/admin/dashboard';
+
   return (
     <>
       <Head>
@@ -53,11 +61,13 @@ export default function Layout({ children }) {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="ms-auto">
-            <Link href="/admin/dashboard" className="btn btn-light">
-              ← Volver al panel
-            </Link>
-          </div>
+          {mostrarBotonVolver && (
+              <div className="ms-auto">
+                <Link href="/admin/dashboard" className="btn btn-light">
+                  ← Volver al panel
+                </Link>
+              </div>
+            )}
         </div>
       </nav>
 
