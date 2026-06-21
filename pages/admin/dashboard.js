@@ -84,6 +84,11 @@ export default function Dashboard() {
       link: '/admin/configuracion-boletines',
     },
     {
+      titulo: 'Reportes Académicos',
+      icono: '/icons/analitica.png',
+      link: '/admin/reportes',
+    },
+    {
       titulo: 'Salir',
       icono: '/icons/salir.png',
       link: '/login', // se puede mantener, o quitar si redirigís manualmente

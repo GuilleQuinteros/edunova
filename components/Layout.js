@@ -54,8 +54,8 @@ export default function Layout({ children }) {
           </button>
 
           <div className="ms-auto">
-            <Link href="/" className="btn btn-light">
-              ← Volver al Inicio
+            <Link href="/admin/dashboard" className="btn btn-light">
+              ← Volver al panel
             </Link>
           </div>
         </div>
