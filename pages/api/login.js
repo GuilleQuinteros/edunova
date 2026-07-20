@@ -20,6 +20,10 @@ export default async function handler(req, res) {
     .select('*')
     .eq('email', email)
     .single();
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 1938111043768c28f6814ed2605ee0a53a59dbea
   if (error || !usuario) {
     return res.status(401).json({ error: 'Usuario no encontrado' });
   }
