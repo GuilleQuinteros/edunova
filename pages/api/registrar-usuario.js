@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     .select('id')
     .eq('email', email)
     .maybeSingle();
-
+    
   if (existente) {
     return res.status(400).json({ error: 'El email ya está registrado' });
   }

@@ -89,6 +89,11 @@ export default function Dashboard() {
       link: '/admin/reportes',
     },
     {
+      titulo: 'Imprimibles',
+      icono: '/icons/impresora.png',
+      link: '/admin/imprimibles',
+    },
+    {
       titulo: 'Salir',
       icono: '/icons/salir.png',
       link: '/login', // se puede mantener, o quitar si redirigís manualmente

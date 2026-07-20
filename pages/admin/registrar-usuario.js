@@ -64,6 +64,8 @@ export default function RegistrarUsuario() {
           >
             <option value="admin">Admin</option>
             <option value="editor">Editor</option>
+            <option value="viewer">Preceptor</option>
+            <option value="viewer">Docente</option>
           </select>
         </div>
         <button type="submit" className="btn btn-primary w-100">
