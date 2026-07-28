@@ -49,6 +49,26 @@ export default async function handler(req, res) {
       });
     }
 
+    function normalizarFecha(fecha) {
+
+  if (!fecha) return null;
+
+  // yyyy-mm-dd
+  if (/^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+    return fecha;
+  }
+
+  // dd/mm/yyyy
+  if (/^\d{2}\/\d{2}\/\d{4}$/.test(fecha)) {
+
+    const [dia, mes, anio] = fecha.split('/');
+
+    return `${anio}-${mes}-${dia}`;
+  }
+
+  return null;
+}  
+
     const alumnosInsertar = nuevos.map(a => ({
       dni: a.dni,
       apellido: a.apellido,
@@ -63,9 +83,7 @@ export default async function handler(req, res) {
         a.anio_ingreso || new Date().getFullYear(),
 
       fecha_nac:
-        a.fecha_nac
-          ? String(a.fecha_nac)
-          : null,
+      normalizarFecha(a.fecha_nac),
 
       telefono:
         a.telefono || null,
