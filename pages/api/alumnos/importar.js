@@ -63,7 +63,9 @@ export default async function handler(req, res) {
         a.anio_ingreso || new Date().getFullYear(),
 
       fecha_nac:
-        a.fecha_nac || null,
+        a.fecha_nac
+          ? String(a.fecha_nac)
+          : null,
 
       telefono:
         a.telefono || null,
@@ -77,24 +79,40 @@ export default async function handler(req, res) {
       localidad:
         a.localidad || null
     }));
+    
+      const errores = [];
+      let importados = 0;
 
-    const { error } = await supabase
-      .from('alumnos')
-      .insert(alumnosInsertar);
+      for (const alumno of alumnosInsertar) {
 
-    if (error) {
-      console.error(error);
+        const { error } = await supabase
+          .from('alumnos')
+          .insert(alumno);
 
-      return res.status(500).json({
-        error: 'Error insertando alumnos'
+        if (error) {
+
+          console.error(error);
+
+          errores.push({
+            alumno: `${alumno.apellido}, ${alumno.nombre}`,
+            dni: alumno.dni,
+            error: error.message
+          });
+
+        } else {
+
+          importados++;
+
+        }
+
+      }
+
+      return res.status(200).json({
+        total: alumnos.length,
+        importados,
+        duplicados: dnisExistentes.length,
+        errores
       });
-    }
-
-    return res.status(200).json({
-      total: alumnos.length,
-      importados: alumnosInsertar.length,
-      duplicados: dnisExistentes.length
-    });
 
   } catch (error) {
 

@@ -41,14 +41,14 @@ export default function ImportarAlumnos() {
   };
 
   const handleImportar = async () => {
+
   if (!archivo) {
     alert('Seleccione un archivo');
     return;
   }
-
+  
   try {
     const filas = await leerExcel(archivo);
-
     setPreview(filas);
 
     console.log('Vista previa:', filas);
@@ -96,13 +96,26 @@ const confirmarImportacion = async () => {
         return;
       }
 
-      alert(`
-  Importación finalizada
+      let mensaje = `
+      Importación finalizada
 
-  Total: ${data.total}
-  Importados: ${data.importados}
-  Duplicados: ${data.duplicados}
-      `);
+      Total: ${data.total}
+      Importados: ${data.importados}
+      Duplicados: ${data.duplicados}
+      Errores: ${data.errores.length}
+      `;
+
+      if (data.errores.length > 0) {
+
+        mensaje += "\n\nDetalle de errores:\n";
+
+        data.errores.forEach(e => {
+          mensaje += `• ${e.alumno} (${e.dni})\n`;
+        });
+
+      }
+
+      alert(mensaje);
 
       setPreview([]);
 
