@@ -1,4 +1,3 @@
-// pages/api/cursos.js
 import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
@@ -7,16 +6,71 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-  try {
-    const { data, error } = await supabase
-      .from('cursos')
-      .select('id, nombre')
-      .order('id', { ascending: true });
 
-    if (error) throw error;
-    return res.status(200).json(data);
+  try {
+
+    // =====================
+    // GET
+    // =====================
+
+    if (req.method === 'GET') {
+
+      const { data, error } = await supabase
+        .from('cursos')
+        .select('*')
+        .order('id');
+
+      if (error) throw error;
+
+      return res.status(200).json(data);
+
+    }
+
+    // =====================
+    // POST
+    // =====================
+
+    if (req.method === 'POST') {
+
+      const { nombre, es_trimestral } = req.body;
+
+      if (!nombre || typeof es_trimestral !== 'boolean') {
+
+        return res.status(400).json({
+          error: 'Datos incompletos o inválidos'
+        });
+
+      }
+
+      const { data, error } = await supabase
+        .from('cursos')
+        .insert([
+          {
+            nombre,
+            es_trimestral
+          }
+        ])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      return res.status(201).json(data);
+
+    }
+
+    return res.status(405).json({
+      error: 'Método no permitido'
+    });
+
   } catch (error) {
-    console.error('Error al obtener cursos:', error);
-    return res.status(500).json({ error: 'Error al obtener cursos' });
+
+    console.error(error);
+
+    return res.status(500).json({
+      error: error.message
+    });
+
   }
+
 }
