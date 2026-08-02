@@ -9,6 +9,18 @@ export default function CargarDivision() {
   const [mensaje, setMensaje] = useState('');
   const [divisiones, setDivisiones] = useState([]);
 
+  const divisionesAgrupadas = divisiones.reduce((acc, division) => {
+  const curso = division.cursos?.nombre || 'Sin curso';
+
+  if (!acc[curso]) {
+    acc[curso] = [];
+  }
+
+  acc[curso].push(division);
+
+  return acc;
+}, {});
+
   // Cargar cursos disponibles
   useEffect(() => {
     fetch('/api/cursos')
@@ -86,18 +98,45 @@ export default function CargarDivision() {
       </form>
 
       {/* Lista de divisiones existentes */}
-      {divisiones.length > 0 && (
-        <div className="mt-5">
-          <h5 className="text-center mb-3">Divisiones Cargadas</h5>
-          <ul className="list-group">
-            {divisiones.map((d) => (
-              <li key={d.id} className="list-group-item">
-                {d.nombre} (Curso ID: {d.curso_id})
-              </li>
+        {divisiones.length > 0 && (
+          <div className="mt-5">
+
+            <h5 className="text-center mb-4">
+              Divisiones Cargadas
+            </h5>
+
+            {Object.entries(divisionesAgrupadas).map(([curso, lista]) => (
+
+              <div
+                key={curso}
+                className="card mb-3 shadow-sm"
+              >
+
+                <div className="card-header bg-primary text-white fw-bold">
+                  {curso}
+                </div>
+
+                <ul className="list-group list-group-flush">
+
+                  {lista.map((division) => (
+
+                    <li
+                      key={division.id}
+                      className="list-group-item"
+                    >
+                      División <strong>{division.nombre}</strong>
+                    </li>
+
+                  ))}
+
+                </ul>
+
+              </div>
+
             ))}
-          </ul>
-        </div>
-      )}
+
+          </div>
+        )}
     </div>
     </Protegido>
   );

@@ -12,7 +12,15 @@ export default async function handler(req, res) {
 
     let query = supabase
       .from('divisiones')
-      .select('id, nombre, curso_id')
+      .select(`
+        id,
+        nombre,
+        curso_id,
+        cursos (
+          nombre
+        )
+      `)
+      .order('curso_id')
       .order('nombre');
 
     // Si viene el curso_id en la query, filtramos
