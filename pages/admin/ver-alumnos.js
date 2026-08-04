@@ -40,15 +40,16 @@ export default function VerAlumnos() {
         .catch(console.error);
 
       const cursoElegido = cursos.find(c => c.id == cursoId);
+
       if (cursoElegido) {
-        const anio = parseInt(cursoElegido.nombre);
-        setEsTrimestral(!isNaN(anio) ? anio <= 3 : true);
+        setEsTrimestral(cursoElegido.es_trimestral);
+        console.log(cursoElegido);
       }
     } else {
       setDivisiones([]);
     }
   }, [cursoId, cursos]);
-
+  
   // Función central para cargar alumnos de la división
   const cargarAlumnos = async () => {
     if (!divisionId) {
